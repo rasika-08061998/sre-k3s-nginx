@@ -1,0 +1,27 @@
+name: Deploy to k3s
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v4
+
+    - name: Configure kubeconfig
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBECONFIG_DATA }}" > ~/.kube/config
+
+    - name: Deploy Kubernetes manifests
+      run: |
+        kubectl apply -f k8s/
+        kubectl rollout status deployment/nginx-deployment
