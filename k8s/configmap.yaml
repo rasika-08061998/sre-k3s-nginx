@@ -11,7 +11,7 @@ data:
     </head>
     <body>
       <h1>Hello World</h1>
-      <p>Deployed on k3s Kubernetes</p>
+      <p>Deployed on k3s Kubernetes – CI/CD test</p>
     </body>
     </html>
 
